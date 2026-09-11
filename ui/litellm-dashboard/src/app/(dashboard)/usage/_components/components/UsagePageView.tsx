@@ -124,9 +124,9 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
   const [isGlobalExportModalOpen, setIsGlobalExportModalOpen] = useState(false);
   const [isAiChatOpen, setIsAiChatOpen] = useState(false);
   const [selectedUsageView, setUsageView] = useState<UsageOption>("global");
-  const stillHasAccessToSelectedView =
-    (selectedUsageView !== "organization" || canViewOrganizationUsage) &&
-    (selectedUsageView !== "project" || canViewProjectUsage);
+  const lostAccessToOrganizationView = selectedUsageView === "organization" && !canViewOrganizationUsage;
+  const lostAccessToProjectView = selectedUsageView === "project" && !canViewProjectUsage;
+  const stillHasAccessToSelectedView = !lostAccessToOrganizationView && !lostAccessToProjectView;
   const usageView: UsageOption = stillHasAccessToSelectedView ? selectedUsageView : "global";
 
   const [showCredentialBanner, setShowCredentialBanner] = useState(true);
